@@ -6,9 +6,9 @@ Global companies regularly buy spare parts for one plant while the same parts si
 
 ![Screenshot of the optimizer showing the savings sentence and the transfer network](docs/screenshot.png)
 
-## Why I built it
+## Where this comes from
 
-During a rotational supply chain leadership program I worked on a global inventory netting and reallocation initiative, which identified up to $2M in savings. The analysis back then lived in spreadsheets: export stock (MB52) and requirements (MD04) from SAP, match excess against shortages, check lanes by hand. This project turns that process into a repeatable tool, and replaces "nearest plant first" with an actual optimization.
+During a rotational supply chain leadership programme I worked on a global inventory netting and reallocation initiative, which identified up to $2M in savings. This project is not a rebuild of that work: the optimisation model, the cost assumptions and the sample data are my own design. It is how I would make the "transfer or buy new" decision systematically, for every part and plant at once, instead of case by case.
 
 ## What it does
 
@@ -41,7 +41,7 @@ Solving per material keeps each model small (a few dozen variables), so the full
 
 Upload four CSV files. Download any table in the app to get a template with the expected columns.
 
-| File | SAP source | Columns |
+| File | Typical SAP source | Columns |
 |---|---|---|
 | `plants.csv` | Plant list | `plant, name, country, lat, lon` |
 | `materials.csv` | Material master (MM03) | `material, description, unit_price_eur, unit_weight_kg, lead_time_days` |
