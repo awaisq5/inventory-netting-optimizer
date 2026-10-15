@@ -366,7 +366,8 @@ export default function App() {
 
       <footer className="footer">
         Solved in your browser as a fixed-charge transportation problem per material. Nothing is uploaded to a
-        server. <a href="https://github.com/awaisq5/inventory-netting-optimizer">Source on GitHub</a>
+        server. Independent personal project with synthetic data; it contains no information from any former employer.{" "}
+        <a href="https://github.com/awaisq5/inventory-netting-optimizer">Source on GitHub</a>
       </footer>
     </div>
   )

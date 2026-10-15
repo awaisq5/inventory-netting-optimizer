@@ -10,6 +10,8 @@ Global companies regularly buy spare parts for one plant while the same parts si
 
 During a rotational supply chain leadership programme I worked on a global inventory netting and reallocation initiative, which identified up to $2M in savings. This project is not a rebuild of that work: the optimisation model, the cost assumptions and the sample data are my own design. It is how I would make the "transfer or buy new" decision systematically, for every part and plant at once, instead of case by case.
 
+> **Independent personal project.** I built this on my own time, after my employment ended, to show the kind of work I did professionally. It contains no code, data, documents, screenshots or other information belonging to any former employer, its customers or its suppliers. The method is rebuilt from general professional knowledge, all data in the repository is synthetic, and the only figures quoted from my career are the ones published on my CV.
+
 ## What it does
 
 1. **Nets stock against demand** for every material and plant. Safety stock and local requirements are protected first. What's left over is *excess*; what's missing is *shortage*.
