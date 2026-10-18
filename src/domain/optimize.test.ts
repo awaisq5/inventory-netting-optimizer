@@ -134,6 +134,17 @@ describe('optimize', () => {
     expect(plan.totals.planCost).toBeLessThanOrEqual(plan.totals.buyAllCost)
     expect(plan.totals.planCost).toBeLessThanOrEqual(greedyNearestCost(SAMPLE, DEFAULT_SETTINGS) + 1e-6)
     expect(plan.warnings).toEqual([])
+    expect(plan.totals.ruleOfThumbCost).toBeCloseTo(greedyNearestCost(SAMPLE, DEFAULT_SETTINGS), 6)
+    expect(plan.totals.savingsVsRuleOfThumb).toBeGreaterThanOrEqual(-1e-6)
+  })
+
+  it('handles a plant that is missing from the plant list without crashing', () => {
+    const material = SAMPLE.materials[0].id
+    const data = { ...SAMPLE, demand: [...SAMPLE.demand, { material, plant: 'XX99', quantity: 5, needByDays: 30 }] }
+    const plan = optimize(data, DEFAULT_SETTINGS)
+    expect(plan.warnings).toContain(`Material ${material}: unknown plant XX99.`)
+    expect(plan.purchases.find((p) => p.plant === 'XX99')?.quantity).toBe(5)
+    expect(Number.isFinite(plan.totals.ruleOfThumbCost)).toBe(true)
   })
 
   it('covers every shortage exactly once', () => {

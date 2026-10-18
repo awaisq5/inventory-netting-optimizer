@@ -203,7 +203,10 @@ export function solveMaterial(
   return result
 }
 
-/** Baseline a planner might use by hand: cover each shortage from the nearest plant with stock. */
+/**
+ * Baseline a planner might use by hand: cover each shortage from the nearest
+ * plant with stock, most urgent first, and buy whatever is left.
+ */
 export function greedyNearestCost(data: Dataset, s: Settings): number {
   const plants = new Map(data.plants.map((p) => [p.id, p]))
   const materials = new Map(data.materials.map((m) => [m.id, m]))
@@ -218,9 +221,11 @@ export function greedyNearestCost(data: Dataset, s: Settings): number {
       .sort((a, b) => a.needBy - b.needBy)
     for (const sink of sinks) {
       let open = sink.pos.shortage
-      const to = plants.get(sink.pos.plant)!
+      const to = plants.get(sink.pos.plant)
+      // Without coordinates a plant cannot send or receive; its shortage is bought.
       const candidates = [...excess.keys()]
-        .map((id) => buildLane(plants.get(id)!, to, m, s))
+        .filter((id) => to && plants.has(id))
+        .map((id) => buildLane(plants.get(id)!, to!, m, s))
         .filter((l) => l.transitDays <= sink.needBy)
         .sort((a, b) => a.distanceKm - b.distanceKm)
       for (const lane of candidates) {
@@ -270,6 +275,7 @@ export function optimize(data: Dataset, s: Settings = DEFAULT_SETTINGS): Plan & 
   const freightCost = sum(transfers, (t) => t.freightCost)
   const fixedCost = sum(transfers, (t) => t.fixedCost)
   const planCost = freightCost + fixedCost + sum(purchases, (p) => p.cost)
+  const ruleOfThumbCost = greedyNearestCost(data, s)
 
   return {
     transfers: transfers.sort((a, b) => b.avoidedPurchase - a.avoidedPurchase),
@@ -281,6 +287,8 @@ export function optimize(data: Dataset, s: Settings = DEFAULT_SETTINGS): Plan & 
       buyAllCost,
       planCost,
       savings: buyAllCost - planCost,
+      ruleOfThumbCost,
+      savingsVsRuleOfThumb: ruleOfThumbCost - planCost,
       unitsTransferred: sum(transfers, (t) => t.quantity),
       avoidedPurchase: sum(transfers, (t) => t.avoidedPurchase),
       freightCost,
