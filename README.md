@@ -18,7 +18,8 @@ During a rotational supply chain leadership programme I worked on a global inven
 2. **Builds candidate lanes** between plants with excess and plants with shortage. Freight is calculated from weight and great-circle distance. Lanes that can't arrive before the need date are excluded and reported as *too slow*.
 3. **Solves a cost-optimal plan** per material: transfer, or buy new (with an expedite surcharge if the supplier lead time misses the need date).
 4. **Explains itself:** which lanes were rejected and why ("Moving 10 units would save €378, less than the €450 cost of raising a transfer"), which purchases will be late, and how much stock remains idle afterwards.
-5. **Exports** the transfer list as CSV, ready to become stock transport orders.
+5. **Compares with the rule of thumb.** The saving is shown against buying everything new and against what a planner would do by hand: cover each shortage from the nearest plant with stock, most urgent first.
+6. **Exports** the transfer list as CSV, ready to become stock transport orders.
 
 Everything runs in the browser. No data leaves the machine, which matters when the input is a company's inventory.
 

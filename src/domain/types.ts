@@ -130,6 +130,9 @@ export interface Plan {
     /** Cost of the optimized plan (freight + fixed + purchases). */
     planCost: number
     savings: number
+    /** Cost of covering each shortage from the nearest plant with stock, as a planner might by hand. */
+    ruleOfThumbCost: number
+    savingsVsRuleOfThumb: number
     unitsTransferred: number
     avoidedPurchase: number
     freightCost: number

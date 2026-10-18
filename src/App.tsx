@@ -101,6 +101,12 @@ export default function App() {
             <dd>{eur(t.savings)}</dd>
           </div>
           <div>
+            <dt>Better than the nearest-plant rule of thumb by</dt>
+            <dd title={`Rule of thumb: ${eur(t.ruleOfThumbCost)}, optimized plan: ${eur(t.planCost)}`}>
+              {eur(Math.max(0, t.savingsVsRuleOfThumb))}
+            </dd>
+          </div>
+          <div>
             <dt>Purchase lines that miss their need date</dt>
             <dd className={t.lateLines ? 'warn' : undefined}>{t.lateLines}</dd>
           </div>

@@ -83,15 +83,18 @@ h2 {
 }
 
 .verdict-facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px 32px;
   margin: 0;
 }
 
 .verdict-facts div {
   border-left: 4px solid var(--tape);
   padding-left: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .verdict-facts dt {
